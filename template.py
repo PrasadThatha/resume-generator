@@ -1200,7 +1200,7 @@ def build_main_content(resume):
 
                             fontSize=9.5,
 
-                            leading=12,
+                            leading=14,
 
                             leftIndent=14,
 
