@@ -35,11 +35,17 @@ def parse_resume(raw_text):
                     sections.get("skills", [])
                 )
             },
-
+            
             {
                 "title": "Certifications",
                 "items": extract_certifications(
                     sections.get("certifications", [])
+                )
+            },
+            {
+                "title": "AI TOOLS",
+                "items": extract_ai_tools(
+                    sections.get("skills", [])
                 )
             }
 
@@ -146,6 +152,7 @@ def detect_sections(lines):
             "academic qualification"
         ],
 
+
         "certifications": [
             "certifications",
             "certification",
@@ -219,214 +226,214 @@ def extract_name(lines):
     return "Candidate"
 
 
-def extract_role(lines):
+# def extract_role(lines):
 
-    if not lines:
+#     if not lines:
 
-        return "Professional"
+#         return "Professional"
 
-    role_keywords = [
+#     role_keywords = [
 
-        # ============================================
-        # SOFTWARE / DEVELOPMENT
-        # ============================================
+#         # ============================================
+#         # SOFTWARE / DEVELOPMENT
+#         # ============================================
 
-        "developer",
-        "software developer",
-        "software engineer",
-        "backend developer",
-        "frontend developer",
-        "full stack developer",
-        "python developer",
-        "java developer",
-        "dot net developer",
-        ".net developer",
-        "web developer",
-        "application developer",
+#         "developer",
+#         "software developer",
+#         "software engineer",
+#         "backend developer",
+#         "frontend developer",
+#         "full stack developer",
+#         "python developer",
+#         "java developer",
+#         "dot net developer",
+#         ".net developer",
+#         "web developer",
+#         "application developer",
 
-        # ============================================
-        # ENGINEERING
-        # ============================================
+#         # ============================================
+#         # ENGINEERING
+#         # ============================================
 
-        "engineer",
-        "system engineer",
-        "platform engineer",
-        "site reliability engineer",
-        "sre engineer",
-        "cloud engineer",
-        "devops engineer",
-        "data engineer",
-        "network engineer",
-        "support engineer",
-        "security engineer",
-        "qa engineer",
-        "test engineer",
+#         "engineer",
+#         "system engineer",
+#         "platform engineer",
+#         "site reliability engineer",
+#         "sre engineer",
+#         "cloud engineer",
+#         "devops engineer",
+#         "data engineer",
+#         "network engineer",
+#         "support engineer",
+#         "security engineer",
+#         "qa engineer",
+#         "test engineer",
 
-        # ============================================
-        # SAP
-        # ============================================
+#         # ============================================
+#         # SAP
+#         # ============================================
 
-        "sap consultant",
-        "sap developer",
-        "sap analyst",
-        "sap architect",
-        "abap developer",
-        "abap consultant",
-        "functional consultant",
-        "technical consultant",
+#         "sap consultant",
+#         "sap developer",
+#         "sap analyst",
+#         "sap architect",
+#         "abap developer",
+#         "abap consultant",
+#         "functional consultant",
+#         "technical consultant",
 
-        # ============================================
-        # ARCHITECTURE
-        # ============================================
+#         # ============================================
+#         # ARCHITECTURE
+#         # ============================================
 
-        "architect",
-        "solution architect",
-        "technical architect",
-        "enterprise architect",
-        "cloud architect",
+#         "architect",
+#         "solution architect",
+#         "technical architect",
+#         "enterprise architect",
+#         "cloud architect",
 
-        # ============================================
-        # ANALYSIS
-        # ============================================
+#         # ============================================
+#         # ANALYSIS
+#         # ============================================
 
-        "analyst",
-        "business analyst",
-        "system analyst",
-        "data analyst",
-        "security analyst",
-        "functional analyst",
+#         "analyst",
+#         "business analyst",
+#         "system analyst",
+#         "data analyst",
+#         "security analyst",
+#         "functional analyst",
 
-        # ============================================
-        # ADMINISTRATION
-        # ============================================
+#         # ============================================
+#         # ADMINISTRATION
+#         # ============================================
 
-        "administrator",
-        "system administrator",
-        "database administrator",
-        "cloud administrator",
+#         "administrator",
+#         "system administrator",
+#         "database administrator",
+#         "cloud administrator",
 
-        # ============================================
-        # MANAGEMENT
-        # ============================================
+#         # ============================================
+#         # MANAGEMENT
+#         # ============================================
 
-        "manager",
-        "project manager",
-        "program manager",
-        "delivery manager",
-        "product manager",
-        "team lead",
-        "technical lead",
-        "lead developer",
-        "lead engineer",
+#         "manager",
+#         "project manager",
+#         "program manager",
+#         "delivery manager",
+#         "product manager",
+#         "team lead",
+#         "technical lead",
+#         "lead developer",
+#         "lead engineer",
 
-        # ============================================
-        # SPECIALIST
-        # ============================================
+#         # ============================================
+#         # SPECIALIST
+#         # ============================================
 
-        "specialist",
-        "technical specialist",
-        "application specialist",
-        "product specialist",
+#         "specialist",
+#         "technical specialist",
+#         "application specialist",
+#         "product specialist",
 
-        # ============================================
-        # DATA / AI
-        # ============================================
+#         # ============================================
+#         # DATA / AI
+#         # ============================================
 
-        "data scientist",
-        "machine learning engineer",
-        "ai engineer",
-        "ml engineer",
-        "ai specialist",
+#         "data scientist",
+#         "machine learning engineer",
+#         "ai engineer",
+#         "ml engineer",
+#         "ai specialist",
 
-        # ============================================
-        # TESTING / QA
-        # ============================================
+#         # ============================================
+#         # TESTING / QA
+#         # ============================================
 
-        "tester",
-        "qa tester",
-        "automation tester",
-        "manual tester",
-        "quality analyst",
+#         "tester",
+#         "qa tester",
+#         "automation tester",
+#         "manual tester",
+#         "quality analyst",
 
-        # ============================================
-        # INFRASTRUCTURE
-        # ============================================
+#         # ============================================
+#         # INFRASTRUCTURE
+#         # ============================================
 
-        "devops",
-        "cloud consultant",
-        "infra engineer",
-        "infrastructure engineer",
+#         "devops",
+#         "cloud consultant",
+#         "infra engineer",
+#         "infrastructure engineer",
 
-        # ============================================
-        # SUPPORT
-        # ============================================
+#         # ============================================
+#         # SUPPORT
+#         # ============================================
 
-        "support analyst",
-        "application support",
-        "technical support",
+#         "support analyst",
+#         "application support",
+#         "technical support",
 
-        # ============================================
-        # UI / UX
-        # ============================================
+#         # ============================================
+#         # UI / UX
+#         # ============================================
 
-        "designer",
-        "ui designer",
-        "ux designer",
-        "ui ux designer",
+#         "designer",
+#         "ui designer",
+#         "ux designer",
+#         "ui ux designer",
 
-        # ============================================
-        # CYBER SECURITY
-        # ============================================
+#         # ============================================
+#         # CYBER SECURITY
+#         # ============================================
 
-        "cyber security analyst",
-        "security consultant",
-        "information security analyst"
+#         "cyber security analyst",
+#         "security consultant",
+#         "information security analyst"
 
-    ]
+#     ]
 
-    # =================================================
-    # CHECK FIRST 20 LINES
-    # =================================================
+#     # =================================================
+#     # CHECK FIRST 20 LINES
+#     # =================================================
 
-    for line in lines[:20]:
+#     for line in lines[:20]:
 
-        clean = cleanup_bullet(
-            line
-        ).strip()
+#         clean = cleanup_bullet(
+#             line
+#         ).strip()
 
-        if not clean:
+#         if not clean:
 
-            continue
+#             continue
 
-        lower = clean.lower()
+#         lower = clean.lower()
 
-        # =============================================
-        # IGNORE LONG SENTENCES
-        # =============================================
+#         # =============================================
+#         # IGNORE LONG SENTENCES
+#         # =============================================
 
-        if len(clean.split()) > 10:
+#         if len(clean.split()) > 10:
 
-            continue
+#             continue
 
-        # =============================================
-        # MATCH ROLE
-        # =============================================
+#         # =============================================
+#         # MATCH ROLE
+#         # =============================================
 
-        if any(
+#         if any(
 
-            keyword in lower
+#             keyword in lower
 
-            for keyword in role_keywords
+#             for keyword in role_keywords
 
-        ):
+#         ):
 
-            return clean.title()
+#             return clean.title()
 
-    # =================================================
-    # FALLBACK
-    # =================================================
+#     # =================================================
+#     # FALLBACK
+#     # =================================================
 
-    return "Professional"
+#     return "Professional"
 
 
 def extract_email(text):
@@ -447,7 +454,74 @@ def extract_mobile(text):
     )
 
     return match.group(0) if match else "Not Available"
+# =====================================================
+# AI TOOLS EXTRACTION
+# =====================================================
+def extract_ai_tools(lines):
 
+    ai_tools = []
+
+    ai_keywords = [
+
+        "chatgpt",
+        "github copilot",
+        "copilot",
+        "cursor",
+        "claude",
+        "gemini",
+        "openai",
+        "bard",
+        "microsoft copilot",
+        "amazon q",
+        "tabnine",
+        "codewhisperer",
+        "ai tools",
+        "generative ai",
+        "gen ai"
+
+    ]
+
+    for line in lines:
+
+        clean = cleanup_bullet(line)
+
+        lower = clean.lower()
+
+        if not clean:
+
+            continue
+
+        for keyword in ai_keywords:
+
+            if keyword in lower:
+
+                ai_tools.append(
+                    clean
+                )
+
+                break
+
+    # =====================================================
+    # REMOVE DUPLICATES
+    # =====================================================
+
+    ai_tools = remove_duplicates(
+        ai_tools
+    )
+
+    # =====================================================
+    # DEFAULT FALLBACK
+    # =====================================================
+
+    if not ai_tools:
+
+        ai_tools = [
+
+            "Not Available"
+
+        ]
+
+    return ai_tools
 
 # =========================================================
 # EDUCATION
@@ -457,22 +531,151 @@ def extract_education(lines):
 
     education = []
 
+    education_keywords = [
+
+    # =================================================
+    # SHORT FORMS
+    # =================================================
+
+    "b.tech",
+    "btech",
+    "b.e",
+    "be",
+    "m.tech",
+    "mtech",
+    "mba",
+    "bsc",
+    "msc",
+    "bca",
+    "mca",
+    "phd",
+    "diploma",
+
+    # =================================================
+    # FULL FORMS
+    # =================================================
+
+    "bachelor of technology",
+    "master of technology",
+    "bachelor of engineering",
+    "master of engineering",
+    "bachelor of science",
+    "master of science",
+    "bachelor of computer applications",
+    "master of computer applications",
+    "master of business administration",
+    "doctor of philosophy",
+
+    # =================================================
+    # EDUCATION TERMS
+    # =================================================
+
+    "university",
+    "college",
+    "institute",
+    "school",
+    "academy",
+
+    # =================================================
+    # QUALIFICATION TERMS
+    # =================================================
+
+    "graduation",
+    "cgpa",
+    "gpa",
+    "percentage",
+    "education",
+    "academic"
+
+]
+
+    year_pattern = re.compile(
+
+        r'(19|20)\d{2}'
+
+    )
+
     for line in lines:
 
         clean = cleanup_bullet(line)
 
-        if len(clean.split()) >= 3:
+        lower = clean.lower()
 
-            education.append(clean)
+        if not clean:
 
-    education = remove_duplicates(education)
+            continue
+
+        # =============================================
+        # MATCH EDUCATION
+        # =============================================
+
+        has_keyword = any(
+
+            keyword in lower
+
+            for keyword in education_keywords
+
+        )
+
+        has_year = bool(
+
+            year_pattern.search(clean)
+
+        )
+
+        # =============================================
+        # FINAL FILTER
+        # =============================================
+
+        if has_keyword or has_year:
+
+            education.append(
+                clean
+            )
+
+    # =============================================
+    # REMOVE DUPLICATES
+    # =============================================
+
+    education = remove_duplicates(
+        education
+    )
+
+    # =============================================
+    # FALLBACK
+    # =============================================
 
     if not education:
 
-        education.append("Education Not Found")
+        education.append(
+            "Education Not Found"
+        )
 
     return education
 
+
+# =========================================================
+# AI TOOL KEYWORDS
+# =========================================================
+
+AI_TOOL_KEYWORDS = [
+
+    "chatgpt",
+    "github copilot",
+    "copilot",
+    "cursor",
+    "claude",
+    "gemini",
+    "openai",
+    "bard",
+    "microsoft copilot",
+    "amazon q",
+    "tabnine",
+    "codewhisperer",
+    "generative ai",
+    "gen ai"
+
+]
 
 # =========================================================
 # SKILLS
@@ -488,7 +691,24 @@ def extract_skills(lines):
 
         clean = cleanup_bullet(line)
 
+        lower = clean.lower()
+
         if not clean:
+
+            continue
+
+        # =====================================================
+        # SKIP AI TOOLS
+        # =====================================================
+
+        if any(
+
+            ai_tool in lower
+
+            for ai_tool in AI_TOOL_KEYWORDS
+
+        ):
+
             continue
 
         # =====================================================
@@ -500,8 +720,10 @@ def extract_skills(lines):
         if ":" in clean:
 
             category, values = clean.split(
+
                 ":",
                 1
+
             )
 
             category = normalize_text(
@@ -512,7 +734,10 @@ def extract_skills(lines):
                 values
             )
 
-            # Split skill values properly
+            # =================================================
+            # SPLIT SKILLS
+            # =================================================
+
             raw_skills = re.split(
 
                 r',|•|\|',
@@ -525,15 +750,41 @@ def extract_skills(lines):
 
             for skill in raw_skills:
 
-                skill = normalize_text(skill)
+                skill = normalize_text(
+                    skill
+                )
+
+                lower_skill = skill.lower()
 
                 if not skill:
+
                     continue
 
                 if len(skill) <= 1:
+
                     continue
 
-                skills.append(skill)
+                # =============================================
+                # SKIP AI TOOLS
+                # =============================================
+
+                if any(
+
+                    ai_tool in lower_skill
+
+                    for ai_tool in AI_TOOL_KEYWORDS
+
+                ):
+
+                    continue
+
+                skills.append(
+                    skill
+                )
+
+            # =================================================
+            # REMOVE DUPLICATES
+            # =================================================
 
             skills = remove_duplicates(
                 skills
@@ -571,10 +822,28 @@ def extract_skills(lines):
                     part
                 )
 
+                lower_skill = skill.lower()
+
                 if not skill:
+
                     continue
 
                 if len(skill) <= 1:
+
+                    continue
+
+                # =============================================
+                # SKIP AI TOOLS
+                # =============================================
+
+                if any(
+
+                    ai_tool in lower_skill
+
+                    for ai_tool in AI_TOOL_KEYWORDS
+
+                ):
+
                     continue
 
                 fallback_skills.append(
@@ -773,103 +1042,103 @@ def extract_summary(lines):
 # =========================================================
 # EXPERIENCE
 # =========================================================
-def calculate_tenure(text):
+# def calculate_tenure(text):
 
-    pattern = r'([A-Za-z]{3,9}\s\d{4})\s*[-–to]+\s*([A-Za-z]{3,9}\s\d{4}|Present|Till Date|Current)'
+#     pattern = r'([A-Za-z]{3,9}\s\d{4})\s*[-–to]+\s*([A-Za-z]{3,9}\s\d{4}|Present|Till Date|Current)'
 
-    match = re.search(
-        pattern,
-        text,
-        re.IGNORECASE
-    )
+#     match = re.search(
+#         pattern,
+#         text,
+#         re.IGNORECASE
+#     )
 
-    if not match:
+#     if not match:
 
-        return ""
+#         return ""
 
-    start_raw = match.group(1)
+#     start_raw = match.group(1)
 
-    end_raw = match.group(2)
+#     end_raw = match.group(2)
 
-    try:
+#     try:
 
-        start_date = datetime.strptime(
-            start_raw,
-            "%b %Y"
-        )
+#         start_date = datetime.strptime(
+#             start_raw,
+#             "%b %Y"
+#         )
 
-    except:
+#     except:
 
-        try:
+#         try:
 
-            start_date = datetime.strptime(
-                start_raw,
-                "%B %Y"
-            )
+#             start_date = datetime.strptime(
+#                 start_raw,
+#                 "%B %Y"
+#             )
 
-        except:
+#         except:
 
-            return ""
+#             return ""
 
-    if end_raw.lower() in [
+#     if end_raw.lower() in [
 
-        "present",
-        "till date",
-        "current"
+#         "present",
+#         "till date",
+#         "current"
 
-    ]:
+#     ]:
 
-        end_date = datetime.now()
+#         end_date = datetime.now()
 
-    else:
+#     else:
 
-        try:
+#         try:
 
-            end_date = datetime.strptime(
-                end_raw,
-                "%b %Y"
-            )
+#             end_date = datetime.strptime(
+#                 end_raw,
+#                 "%b %Y"
+#             )
 
-        except:
+#         except:
 
-            try:
+#             try:
 
-                end_date = datetime.strptime(
-                    end_raw,
-                    "%B %Y"
-                )
+#                 end_date = datetime.strptime(
+#                     end_raw,
+#                     "%B %Y"
+#                 )
 
-            except:
+#             except:
 
-                return ""
+#                 return ""
 
-    months = (
+#     months = (
 
-        (end_date.year - start_date.year) * 12
+#         (end_date.year - start_date.year) * 12
 
-        + (end_date.month - start_date.month)
+#         + (end_date.month - start_date.month)
 
-    )
+#     )
 
-    years = months // 12
+#     years = months // 12
 
-    remaining_months = months % 12
+#     remaining_months = months % 12
 
-    tenure = []
+#     tenure = []
 
-    if years > 0:
+#     if years > 0:
 
-        tenure.append(
-            f"{years} Years"
-        )
+#         tenure.append(
+#             f"{years} Years"
+#         )
 
-    if remaining_months > 0:
+#     if remaining_months > 0:
 
-        tenure.append(
-            f"{remaining_months} Months"
-        )
+#         tenure.append(
+#             f"{remaining_months} Months"
+#         )
 
-    return " ".join(tenure)
+#     return " ".join(tenure)
 def extract_role(lines):
 
     if not lines:
@@ -878,15 +1147,160 @@ def extract_role(lines):
 
     role_keywords = [
 
+        # ============================================
+        # SOFTWARE / DEVELOPMENT
+        # ============================================
+
         "developer",
+        "software developer",
+        "software engineer",
+        "backend developer",
+        "frontend developer",
+        "full stack developer",
+        "python developer",
+        "java developer",
+        "dot net developer",
+        ".net developer",
+        "web developer",
+        "application developer",
+
+        # ============================================
+        # ENGINEERING
+        # ============================================
+
         "engineer",
-        "lead",
+        "system engineer",
+        "platform engineer",
+        "site reliability engineer",
+        "sre engineer",
+        "cloud engineer",
+        "devops engineer",
+        "data engineer",
+        "network engineer",
+        "support engineer",
+        "security engineer",
+        "qa engineer",
+        "test engineer",
+
+        # ============================================
+        # SAP
+        # ============================================
+
+        "sap consultant",
+        "sap developer",
+        "sap analyst",
+        "sap architect",
+        "abap developer",
+        "abap consultant",
+        "functional consultant",
+        "technical consultant",
+
+        # ============================================
+        # ARCHITECTURE
+        # ============================================
+
         "architect",
-        "consultant",
-        "manager",
+        "solution architect",
+        "technical architect",
+        "enterprise architect",
+        "cloud architect",
+
+        # ============================================
+        # ANALYSIS
+        # ============================================
+
         "analyst",
+        "business analyst",
+        "system analyst",
+        "data analyst",
+        "security analyst",
+        "functional analyst",
+
+        # ============================================
+        # ADMINISTRATION
+        # ============================================
+
+        "administrator",
+        "system administrator",
+        "database administrator",
+        "cloud administrator",
+
+        # ============================================
+        # MANAGEMENT
+        # ============================================
+
+        "manager",
+        "project manager",
+        "program manager",
+        "delivery manager",
+        "product manager",
+        "team lead",
+        "technical lead",
+        "lead developer",
+        "lead engineer",
+
+        # ============================================
+        # SPECIALIST
+        # ============================================
+
+        "specialist",
+        "technical specialist",
+        "application specialist",
+        "product specialist",
+
+        # ============================================
+        # DATA / AI
+        # ============================================
+
+        "data scientist",
+        "machine learning engineer",
+        "ai engineer",
+        "ml engineer",
+        "ai specialist",
+
+        # ============================================
+        # TESTING / QA
+        # ============================================
+
         "tester",
-        "administrator"
+        "qa tester",
+        "automation tester",
+        "manual tester",
+        "quality analyst",
+
+        # ============================================
+        # INFRASTRUCTURE
+        # ============================================
+
+        "devops",
+        "cloud consultant",
+        "infra engineer",
+        "infrastructure engineer",
+
+        # ============================================
+        # SUPPORT
+        # ============================================
+
+        "support analyst",
+        "application support",
+        "technical support",
+
+        # ============================================
+        # UI / UX
+        # ============================================
+
+        "designer",
+        "ui designer",
+        "ux designer",
+        "ui ux designer",
+
+        # ============================================
+        # CYBER SECURITY
+        # ============================================
+
+        "cyber security analyst",
+        "security consultant",
+        "information security analyst"
 
     ]
 
@@ -923,6 +1337,199 @@ def extract_role(lines):
             return clean.title()
 
     return ""
+# =====================================================
+# TENURE CALCULATOR
+# =====================================================
+
+def calculate_tenure(text):
+
+    pattern = (
+
+        r'('
+        r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*'
+        r'[\s,\-/]*\d{2,4}'
+        r'|\d{1,2}[\/\-]\d{2,4}'
+        r'|\d{4}[\/\-]\d{1,2}'
+        r')'
+
+        r'\s*[-–to]+\s*'
+
+        r'('
+        r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*'
+        r'[\s,\-/]*\d{2,4}'
+        r'|\d{1,2}[\/\-]\d{2,4}'
+        r'|\d{4}[\/\-]\d{1,2}'
+        r'|Present|Current|Till Date'
+        r')'
+
+    )
+
+    match = re.search(
+
+        pattern,
+
+        text,
+
+        re.IGNORECASE
+
+    )
+
+    if not match:
+
+        return ""
+
+    start_raw = match.group(1)
+
+    end_raw = match.group(2)
+    # =============================================
+    # CLEAN DATE TEXT
+    # =============================================
+
+    start_raw = start_raw.replace(",", "").strip()
+
+    end_raw = end_raw.replace(",", "").strip()
+
+    # =================================================
+    # SUPPORTED DATE FORMATS
+    # =================================================
+
+    date_formats = [
+
+        "%b %Y",
+        "%B %Y",
+        "%m/%Y",
+        "%m-%Y",
+        "%Y-%m",
+        "%Y/%m"
+
+    ]
+
+    start_date = None
+
+    # =================================================
+    # START DATE
+    # =================================================
+
+    for fmt in date_formats:
+
+        try:
+
+            start_date = datetime.strptime(
+
+                start_raw,
+
+                fmt
+
+            )
+
+            break
+
+        except:
+
+            pass
+
+    if not start_date:
+
+        return ""
+
+    # =================================================
+    # END DATE
+    # =================================================
+
+    if end_raw.lower() in [
+
+        "present",
+        "current",
+        "till date"
+
+    ]:
+
+        end_date = datetime.now()
+
+    else:
+
+        end_date = None
+
+        for fmt in date_formats:
+
+            try:
+
+                end_date = datetime.strptime(
+
+                    end_raw,
+
+                    fmt
+
+                )
+
+                break
+
+            except:
+
+                pass
+
+        if not end_date:
+
+            return ""
+
+    # =================================================
+    # CALCULATE TOTAL MONTHS
+    # =================================================
+
+    months = (
+
+        (end_date.year - start_date.year) * 12
+
+        + (end_date.month - start_date.month)
+
+    )
+
+    years = months // 12
+
+    remaining_months = months % 12
+
+    tenure_parts = []
+
+    # =================================================
+    # YEARS
+    # =================================================
+
+    if years > 0:
+
+        if years == 1:
+
+            tenure_parts.append(
+                "1 Year"
+            )
+
+        else:
+
+            tenure_parts.append(
+                f"{years} Years"
+            )
+
+    # =================================================
+    # MONTHS
+    # =================================================
+
+    if remaining_months > 0:
+
+        if remaining_months == 1:
+
+            tenure_parts.append(
+                "1 Month"
+            )
+
+        else:
+
+            tenure_parts.append(
+                f"{remaining_months} Months"
+            )
+
+    return " ".join(
+        tenure_parts
+    )
+
 def extract_experience(lines):
 
     if not lines:
@@ -933,14 +1540,11 @@ def extract_experience(lines):
                 "projects": [
 
                     {
+                        "project": "",
                         "role": "",
-
                         "company": "",
-
                         "duration": "",
-
                         "tenure": "",
-
                         "points": [
 
                             "Experience Not Found"
@@ -957,14 +1561,11 @@ def extract_experience(lines):
 
     current_entry = {
 
+        "project": "",
         "role": "",
-
         "company": "",
-
         "duration": "",
-
         "tenure": "",
-
         "points": []
 
     }
@@ -985,160 +1586,6 @@ def extract_experience(lines):
     ]
 
     # =====================================================
-    # TENURE CALCULATOR
-    # =====================================================
-
-    def calculate_tenure(text):
-
-        pattern = (
-
-            r'([A-Za-z]{3,9}\s\d{4})'
-
-            r'\s*[-–to]+\s*'
-
-            r'([A-Za-z]{3,9}\s\d{4}|Present|Till Date|Current)'
-        )
-
-        match = re.search(
-
-            pattern,
-
-            text,
-
-            re.IGNORECASE
-
-        )
-
-        if not match:
-
-            return ""
-
-        start_raw = match.group(1)
-
-        end_raw = match.group(2)
-
-        date_formats = [
-
-            "%b %Y",
-            "%B %Y"
-
-        ]
-
-        start_date = None
-
-        for fmt in date_formats:
-
-            try:
-
-                start_date = datetime.strptime(
-
-                    start_raw,
-
-                    fmt
-
-                )
-
-                break
-
-            except:
-
-                pass
-
-        if not start_date:
-
-            return ""
-
-        # =============================================
-        # END DATE
-        # =============================================
-
-        if end_raw.lower() in [
-
-            "present",
-            "current",
-            "till date"
-
-        ]:
-
-            end_date = datetime.now()
-
-        else:
-
-            end_date = None
-
-            for fmt in date_formats:
-
-                try:
-
-                    end_date = datetime.strptime(
-
-                        end_raw,
-
-                        fmt
-
-                    )
-
-                    break
-
-                except:
-
-                    pass
-
-            if not end_date:
-
-                return ""
-
-        # =============================================
-        # CALCULATE MONTHS
-        # =============================================
-
-        months = (
-
-            (end_date.year - start_date.year) * 12
-
-            + (end_date.month - start_date.month)
-
-        )
-
-        years = months // 12
-
-        remaining_months = months % 12
-
-        tenure_parts = []
-
-        if years > 0:
-
-            if years == 1:
-
-                tenure_parts.append(
-                    "1 Year"
-                )
-
-            else:
-
-                tenure_parts.append(
-                    f"{years} Years"
-                )
-
-        if remaining_months > 0:
-
-            if remaining_months == 1:
-
-                tenure_parts.append(
-                    "1 Month"
-                )
-
-            else:
-
-                tenure_parts.append(
-                    f"{remaining_months} Months"
-                )
-
-        return " ".join(
-            tenure_parts
-        )
-
-    # =====================================================
     # MAIN LOOP
     # =====================================================
 
@@ -1153,7 +1600,102 @@ def extract_experience(lines):
             continue
 
         # =================================================
-        # ROLE DETECTION
+        # PROJECT NAME
+        # =================================================
+
+        if (
+
+            "project" in lower
+
+            and ":" not in lower
+
+        ):
+
+            if (
+
+                current_entry["project"]
+
+                or current_entry["role"]
+
+                or current_entry["company"]
+
+                or current_entry["points"]
+
+            ):
+
+                experience_entries.append(
+                    current_entry
+                )
+
+            current_entry = {
+
+                "project": clean,
+                "role": "",
+                "company": "",
+                "duration": "",
+                "tenure": "",
+                "points": []
+
+            }
+
+            continue
+
+        # =================================================
+        # CLIENT NAME
+        # =================================================
+
+        if "client name" in lower:
+
+            value = clean.split("-", 1)
+
+            if len(value) > 1:
+
+                current_entry["company"] = (
+                    value[1].strip()
+                )
+
+            continue
+
+        # =================================================
+        # DURATION
+        # =================================================
+
+        if "duration" in lower:
+
+            value = clean.split("-", 1)
+
+            if len(value) > 1:
+
+                duration = value[1].strip()
+
+                current_entry["duration"] = (
+                    duration
+                )
+
+                current_entry["tenure"] = (
+                    calculate_tenure(duration)
+                )
+
+            continue
+
+        # =================================================
+        # ROLE BY LABEL
+        # =================================================
+
+        if lower.startswith("role"):
+
+            value = clean.split("-", 1)
+
+            if len(value) > 1:
+
+                current_entry["role"] = (
+                    value[1].strip()
+                )
+
+            continue
+
+        # =================================================
+        # NORMAL ROLE DETECTION
         # =================================================
 
         is_role = (
@@ -1172,7 +1714,6 @@ def extract_experience(lines):
 
         if is_role:
 
-            # SAVE PREVIOUS ENTRY
             if (
 
                 current_entry["role"]
@@ -1187,17 +1728,13 @@ def extract_experience(lines):
                     current_entry
                 )
 
-            # START NEW ENTRY
             current_entry = {
 
+                "project": "",
                 "role": clean,
-
                 "company": "",
-
                 "duration": "",
-
                 "tenure": "",
-
                 "points": []
 
             }
@@ -1205,15 +1742,15 @@ def extract_experience(lines):
             continue
 
         # =================================================
-        # COMPANY + DURATION
+        # COMPANY + DURATION LINE
         # =================================================
 
         if "|" in clean:
 
             current_entry["company"] = clean
 
-            current_entry["tenure"] = calculate_tenure(
-                clean
+            current_entry["tenure"] = (
+                calculate_tenure(clean)
             )
 
             continue
@@ -1232,7 +1769,9 @@ def extract_experience(lines):
 
     if (
 
-        current_entry["role"]
+        current_entry["project"]
+
+        or current_entry["role"]
 
         or current_entry["company"]
 
@@ -1265,7 +1804,6 @@ def extract_experience(lines):
         }
 
     ]
-
 # =========================================================
 # HELPERS
 # =========================================================

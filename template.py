@@ -133,11 +133,11 @@ bullet_style = ParagraphStyle(
 
     textColor=colors.black,
 
-    leftIndent=18,
+    leftIndent=34,
 
-    firstLineIndent=0,
+    firstLineIndent=-10,
 
-    spaceAfter=2
+    spaceAfter=0
 
 )
 
@@ -211,7 +211,7 @@ def create_resume_pdf(
 
         PAGE_WIDTH - 200,
 
-        PAGE_HEIGHT - 60,
+        PAGE_HEIGHT - 75,
 
         showBoundary=0,
 
@@ -378,7 +378,7 @@ def draw_first_page(
 
         PAGE_HEIGHT - 46,
 
-        "UST"
+        "UST" 
 
     )
 
@@ -619,6 +619,7 @@ def draw_sidebar(
                 "technical" in section_title
 
                 or "certification" in section_title
+                or "ai tools" in section_title
 
             )
 
@@ -725,6 +726,7 @@ def draw_later_pages(
         0,
 
         0,
+        
 
         PAGE_WIDTH,
 
@@ -750,7 +752,7 @@ def draw_later_pages(
 
         0,
 
-        175,
+        180,
 
         PAGE_HEIGHT,
 
@@ -1062,11 +1064,11 @@ def build_main_content(resume):
 
                             leading=12,
 
-                            leftIndent=14,
+                            leftIndent=25,
 
                             spaceBefore=0,
 
-                            spaceAfter=1
+                            spaceAfter=0
 
                         )
 
@@ -1103,19 +1105,19 @@ def build_main_content(resume):
                 ""
             )
 
-            if duration:
+            # if duration:
 
-                content.append(
+            #     content.append(
 
-                    Paragraph(
+            #         Paragraph(
 
-                        f"<b>Duration:</b> {duration}",
+            #             f"<b>Duration:</b> {duration}",
 
-                        bullet_style
+            #             bullet_style
 
-                    )
+            #         )
 
-                )
+            #     )
 
             if technology:
 
@@ -1202,7 +1204,7 @@ def build_main_content(resume):
 
                             leading=12,
 
-                            leftIndent=14,
+                            leftIndent=25,
 
                             spaceBefore=0,
 
@@ -1229,6 +1231,41 @@ def build_main_content(resume):
             # =============================================
             # RESPONSIBILITIES
             # =============================================
+            # =============================================
+            # RESPONSIBILITIES HEADING
+            # =============================================
+
+            if project.get("points"):
+
+                content.append(
+
+                    Paragraph(
+
+                        "<b>Responsibilities:</b>",
+
+                        ParagraphStyle(
+
+                            'responsibility_heading',
+
+                            parent=bullet_style,
+
+                            fontName='Aptos-Bold',
+
+                            fontSize=10,
+
+                            leading=14,
+
+                            leftIndent=25,
+
+                            spaceBefore=4,
+
+                            spaceAfter=0
+
+                        )
+
+                    )
+
+                )
 
             for point in project.get(
                 "points",
