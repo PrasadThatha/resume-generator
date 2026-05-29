@@ -595,7 +595,49 @@ def draw_sidebar(
 
                 else:
 
-                    text = skills_text
+                    for skill in skills:
+
+                        wrapped_lines = split_text(
+                            skill,
+                            32
+                        )
+
+                        for index, line in enumerate(
+                            wrapped_lines
+                        ):
+
+                            if index == 0:
+
+                                canvas.setStrokeColor(
+                                    colors.black
+                                )
+
+                                canvas.setFillColor(
+                                    colors.black
+                                )
+
+                                canvas.circle(
+                                    x + 4,
+                                    y + 2,
+                                    2,
+                                    fill=1
+                                )
+
+                            canvas.setFillColor(
+                                colors.white
+                            )
+
+                            canvas.drawString(
+                                x + 12,
+                                y,
+                                line
+                            )
+
+                            y -= line_gap
+
+                        y -= 4
+
+                    continue
 
             # =============================================
             # NORMAL ITEMS

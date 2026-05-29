@@ -1,5 +1,5 @@
 import os
-
+from word_generator import generate_word
 from extractor import extract_text
 from parser import parse_resume
 from pdf_generator import generate_pdf
@@ -34,6 +34,12 @@ def process_resume():
     generated_pdf = generate_pdf(parsed_data)
 
     print(f"PDF Generated Successfully: {generated_pdf}")
+
+    print("STEP 4 - Generating WORD")
+
+    generated_word = generate_word(parsed_data)
+
+    print(f"WORD Generated Successfully: {generated_word}")
 
 
 if __name__ == "__main__":

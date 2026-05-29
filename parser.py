@@ -6,9 +6,71 @@ from datetime import datetime
 
 def parse_resume(raw_text):
 
-    lines = preprocess_lines(raw_text.splitlines())
+    lines = preprocess_lines(
+        raw_text.splitlines()
+    )
 
-    sections = detect_sections(lines)
+    sections = detect_sections(
+        lines
+    )
+
+    sidebar_sections = []
+
+    # ==========================================
+    # EDUCATION
+    # ==========================================
+
+    education = extract_education(
+        sections.get("education", [])
+    )
+
+    if education:
+        sidebar_sections.append({
+            "title": "Education",
+            "items": education
+        })
+
+    # ==========================================
+    # TECHNICAL EXPERTISE
+    # ==========================================
+
+    skills = extract_skills(
+        sections.get("skills", [])
+    )
+
+    if skills:
+        sidebar_sections.append({
+            "title": "Technical Expertise",
+            "items": skills
+        })
+
+    # ==========================================
+    # CERTIFICATIONS
+    # ==========================================
+
+    certifications = extract_certifications(
+        sections.get("certifications", [])
+    )
+
+    if certifications:
+        sidebar_sections.append({
+            "title": "Certifications",
+            "items": certifications
+        })
+
+    # ==========================================
+    # AI TOOLS
+    # ==========================================
+
+    ai_tools = extract_ai_tools(
+        sections.get("skills", [])
+    )
+
+    if ai_tools:
+        sidebar_sections.append({
+            "title": "AI TOOLS",
+            "items": ai_tools
+        })
 
     resume = {
 
@@ -16,40 +78,15 @@ def parse_resume(raw_text):
 
         "role": extract_role(lines),
 
-        "mobile": extract_mobile(raw_text),
+        "mobile": extract_mobile(
+            raw_text
+        ),
 
-        "email": extract_email(raw_text),
+        "email": extract_email(
+            raw_text
+        ),
 
-        "sidebar_sections": [
-
-            {
-                "title": "Education",
-                "items": extract_education(
-                    sections.get("education", [])
-                )
-            },
-
-            {
-                "title": "Technical Expertise",
-                "items": extract_skills(
-                    sections.get("skills", [])
-                )
-            },
-            
-            {
-                "title": "Certifications",
-                "items": extract_certifications(
-                    sections.get("certifications", [])
-                )
-            },
-            {
-                "title": "AI TOOLS",
-                "items": extract_ai_tools(
-                    sections.get("skills", [])
-                )
-            }
-
-        ],
+        "sidebar_sections": sidebar_sections,
 
         "summary": extract_summary(
             sections.get("summary", [])
@@ -127,10 +164,13 @@ def detect_sections(lines):
     headers = {
 
         "summary": [
-            "summary",
-            "professional summary",
-            "profile summary",
-            "career summary"
+                "summary",
+                "professional summary",
+                "profile",
+                "career summary",
+                "executive summary",
+                "about me",
+                "overview"
         ],
 
         "skills": [
@@ -513,14 +553,6 @@ def extract_ai_tools(lines):
     # DEFAULT FALLBACK
     # =====================================================
 
-    if not ai_tools:
-
-        ai_tools = [
-
-            "Not Available"
-
-        ]
-
     return ai_tools
 
 # =========================================================
@@ -644,12 +676,6 @@ def extract_education(lines):
     # =============================================
     # FALLBACK
     # =============================================
-
-    if not education:
-
-        education.append(
-            "Education Not Found"
-        )
 
     return education
 
@@ -877,18 +903,7 @@ def extract_skills(lines):
     # =========================================================
 
     if not structured_skills:
-
-        structured_skills.append({
-
-            "category": "Skills",
-
-            "skills": [
-
-                "Skills Not Found"
-
-            ]
-
-        })
+        return []
 
     return structured_skills
 
@@ -911,10 +926,6 @@ def extract_certifications(lines):
 
     certifications = remove_duplicates(certifications)
 
-    if not certifications:
-
-        certifications.append("Certification Not Found")
-
     return certifications
 
 
@@ -927,9 +938,7 @@ def extract_summary(lines):
     if not lines:
 
         return [
-
             "Summary Not Found"
-
         ]
 
     cleaned_lines = []
@@ -951,10 +960,6 @@ def extract_summary(lines):
 
         lower = clean.lower()
 
-        # ==========================================
-        # IGNORE JUNK
-        # ==========================================
-
         if any(
 
             pattern in lower
@@ -965,18 +970,13 @@ def extract_summary(lines):
 
             continue
 
-        # Ignore very small lines
         if len(clean.split()) < 4:
 
             continue
 
         cleaned_lines.append(
-            clean
+                clean
         )
-
-    # ==============================================
-    # REMOVE DUPLICATES
-    # ==============================================
 
     cleaned_lines = remove_duplicates(
         cleaned_lines
@@ -985,38 +985,12 @@ def extract_summary(lines):
     if not cleaned_lines:
 
         return [
-
             "Summary Not Found"
-
         ]
-
-    # ==============================================
-    # JOIN SUMMARY
-    # ==============================================
 
     summary = " ".join(
         cleaned_lines
     )
-
-    # ==============================================
-    # LIMIT WORDS
-    # ==============================================
-
-    MAX_WORDS = 140
-
-    words = summary.split()
-
-    if len(words) > MAX_WORDS:
-
-        summary = " ".join(
-
-            words[:MAX_WORDS]
-
-        ) + "..."
-
-    # ==============================================
-    # SPLIT INTO SMALLER SENTENCES
-    # ==============================================
 
     sentences = summary.split(".")
 
@@ -1032,7 +1006,7 @@ def extract_summary(lines):
                 sentence + "."
             )
 
-    return formatted_summary[:6]
+    return formatted_summary
 
 
 # =========================================================
